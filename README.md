@@ -4,23 +4,36 @@
 # Musical Tesla Coil firmware
 
 This code allows direct streaming of Bluetooth audio to the Tesla Coil driver and power amplifier.
+
 It is derived from bt_stream demo by Expressif, which handles the connection to the BT client and provides a stream of stereo, 16 bit PCM data.
+
 The modified code converts the stream to mono and interpolates it to the resonant frequency of the Tesla Coil, which in my case is close to 770 kHz. The actual frequency can be fine adjusted with a potentiometer wired to the ADC1 input of the ESP32.
+
 After interpolation, the audio sequence is reduced to a 1 bit flow using a 2nd order sigma-delta approach (function sigma_delta_encode in bt_app_core.c). Then the sequence is doubled, putting a 0 bit after each original bit.
+
 Finally, the ~1540 kHz stream is output on a physical digital output using the I2S interface, clocked by the high accuracy APLL. A tricky routine adjust_pll allows to reconfigure the frequency on the fly when the potentiometer is adjusted, without requiring to reinitialize the I2S subsystem as standard APIs require.
 
+
 Tesla Coil center frequency is defined in main.c, line 51 (long fOut = xxx).
+
 A frequency much higher than this may not be supported without software optimizations, because the two cores are already quite loaded.
 
 ## Build instructions (Windows - similar on Linux)
 
 Install the Expressif esp-idf environment and enter the ESP-IDF command prompt
+
 Enter the project directory TeslaCoil_BT
+
 give the command "idf.py build"
+
 connect ESP32 target with USB, check the configured serial port (in my case COM13)
+
 download code with command "idf.py flash -p COM13"
+
 you can see debug info with command "idf.py monitor -p COM13"
+
 all previous commands can be combined after a modification, e.g. "idf.py build flash monitor -p COM13"
+
 
 Follows the original README.md from Expressif bt_stream demo
 ------------------------------------------------------------
