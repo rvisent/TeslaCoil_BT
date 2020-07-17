@@ -1,0 +1,4 @@
+Musical Tesla Coil for ESP32 by Roberto Visentin
+
+Bluetooth code derived by sample code bt_stream developed by Expressif
+bt_stream is part of ESP32 development kit esp-idf, published under Apache 2.0 license
