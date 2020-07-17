@@ -3,7 +3,7 @@
 
 # Musical Tesla Coil firmware
 
-This code allows direct streaming of Bluetooth audio to the Tesla Coil driver and power amplifier.
+This code allows direct streaming of Bluetooth audio to a Tesla Coil driver and power amplifier through pin IO32.
 
 It is derived from bt_stream demo by Expressif, which handles the connection to the BT client and provides a stream of stereo, 16 bit PCM data.
 
